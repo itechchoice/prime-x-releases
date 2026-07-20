@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f8fb" />
+    <meta
+      name="description"
+      content="Download the Prime-X Technical Preview for Apple silicon and Windows 10 or 11."
+    />
+    <meta property="og:title" content="Prime-X Technical Preview" />
+    <meta
+      property="og:description"
+      content="Local agents with enterprise control. Download Prime-X for macOS and Windows."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://itechchoice.github.io/prime-x-releases/"
+    />
+    <meta
+      property="og:image"
+      content="https://itechchoice.github.io/prime-x-releases/assets/prime-x-icon.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" href="%BASE_URL%favicon.png" />
+    <title>Prime-X Technical Preview</title>
+    <script>
+      (() => {
+        const saved = localStorage.getItem("prime-x-theme");
+        const dark =
+          saved === "dark" ||
+          (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.classList.toggle("dark", dark);
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

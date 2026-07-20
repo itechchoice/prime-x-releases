@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://itechchoice.github.io/prime-x-releases/sitemap.xml
