@@ -365,9 +365,11 @@ export default function App() {
                 <span className="size-1.5 rounded-full bg-[#087ff5]" />
                 {t.hero.eyebrow}
               </div>
-              <h1 className="max-w-[720px] text-[clamp(3.25rem,7vw,6.5rem)] leading-[0.92] font-semibold tracking-[-0.07em] text-balance">
-                <span className="block">{t.hero.titleLine1}</span>
-                <span className="mt-2 block text-[#087ff5]">
+              <h1 className="max-w-[720px] text-[clamp(3rem,5.4vw,4.75rem)] leading-[0.94] font-semibold tracking-[-0.065em]">
+                <span className="block whitespace-nowrap">
+                  {t.hero.titleLine1}
+                </span>
+                <span className="mt-2 block whitespace-nowrap text-[#087ff5]">
                   {t.hero.titleLine2}
                 </span>
               </h1>
