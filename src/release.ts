@@ -37,29 +37,29 @@ type GitHubRelease = {
 };
 
 const REPOSITORY = "itechchoice/prime-x-releases";
-const FALLBACK_TAG = "v0.1.0-internal.9";
+const FALLBACK_TAG = "v0.1.0-internal.10";
 const FALLBACK_RELEASE_URL = `https://github.com/${REPOSITORY}/releases/tag/${FALLBACK_TAG}`;
 const FALLBACK_ASSET_URL = `https://github.com/${REPOSITORY}/releases/download/${FALLBACK_TAG}`;
 
 export const fallbackRelease: ReleaseInfo = {
   tag: FALLBACK_TAG,
-  name: "Prime-X v0.1.0-internal.9 (TP9)",
-  publishedAt: "2026-07-22T04:53:45Z",
+  name: "Prime-X v0.1.0-internal.10 (TP10)",
+  publishedAt: "2026-07-22T08:05:26Z",
   pageUrl: FALLBACK_RELEASE_URL,
   source: "fallback",
   mac: {
     name: "Prime-X-0.1.0-mac-arm64.dmg",
     url: `${FALLBACK_ASSET_URL}/Prime-X-0.1.0-mac-arm64.dmg`,
-    size: 125_778_726,
+    size: 125_779_597,
     checksum:
-      "7adc6ac4f04e7ac64e74e3b6dacbe76580243ad21d86f0526e8cc56d07b28a88",
+      "dcc891b0d960d5a1b8a62fb455549c36bbac2ccac9d916151788d24705f185bb",
   },
   windows: {
     name: "Prime-X-0.1.0-win-x64.exe",
     url: `${FALLBACK_ASSET_URL}/Prime-X-0.1.0-win-x64.exe`,
-    size: 103_010_816,
+    size: 103_011_175,
     checksum:
-      "b0d4146aeaac0f6c615b8c06e5fa9f2fe0a416b2c51ab3fed20045ccd4a095df",
+      "ed6bdca26a0baf2f0d63920f0f9480518abf6a4561faf68e0bdd6c1cd10418bc",
   },
 };
 
