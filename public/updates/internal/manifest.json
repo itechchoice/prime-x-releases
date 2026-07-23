@@ -1,20 +1,20 @@
 {
   "manifest": {
     "payloadVersion": "primaris.desktop-update/v2",
-    "releaseId": "945e1488-c64b-46da-a4a4-e5bbf604fa2b",
-    "manifestVersion": 9,
+    "releaseId": "99da88d1-3a90-49e3-ae2a-171680b7aece",
+    "manifestVersion": 11,
     "channel": "internal",
-    "releaseVersion": "0.1.1-internal.9",
-    "buildNumber": 9,
+    "releaseVersion": "0.1.1-internal.11",
+    "buildNumber": 11,
     "minimumAllowedVersion": "0.1.0",
     "classification": "normal",
-    "publishedAt": "2026-07-23T18:32:26.837Z",
-    "expiresAt": "2026-09-23T18:32:26.837Z",
-    "releaseCommit": "a344ec94dbaef4bd956bc0453b474571edafa12c",
-    "releaseNotesUrl": "https://github.com/itechchoice/prime-x-releases/releases/tag/v0.1.1-internal.9",
+    "publishedAt": "2026-07-23T20:19:08.508Z",
+    "expiresAt": "2026-09-23T20:19:08.508Z",
+    "releaseCommit": "cd884d2dc59ff7c42f9bfffc76b905db0997f34f",
+    "releaseNotesUrl": "https://github.com/itechchoice/prime-x-releases/releases/tag/v0.1.1-internal.11",
     "rollout": {
       "basisPoints": 10000,
-      "seed": "prime-x-internal-0.1.1-internal.9",
+      "seed": "prime-x-internal-0.1.1-internal.11",
       "paused": false
     },
     "withdrawn": {
@@ -24,7 +24,7 @@
     "compatibility": {
       "desktop": {
         "minimum": "0.1.0",
-        "maximum": "0.1.1-internal.9"
+        "maximum": "0.1.1-internal.11"
       },
       "minimumOperatingSystem": {
         "darwin": "13.0.0",
@@ -49,33 +49,33 @@
         "platform": "darwin",
         "architecture": "arm64",
         "kind": "dmg",
-        "url": "https://github.com/itechchoice/prime-x-releases/releases/download/v0.1.1-internal.9/Prime-X-0.1.1-internal.9-mac-arm64.dmg",
-        "byteSize": 113993500,
-        "sha256": "b2c47281856daae99d268793282c2bcc891c889383a3fa3c0bc45d4344ffe214",
-        "sha512": "YjrejogtCG7VSoomRanFG018zzgzKo3q8HyIHygPxkOHF6OscYRmaR7/OnmKorA+EUoOPxy+TMq3wxpcok1/OQ==",
+        "url": "https://github.com/itechchoice/prime-x-releases/releases/download/v0.1.1-internal.11/Prime-X-0.1.1-internal.11-mac-arm64.dmg",
+        "byteSize": 113993958,
+        "sha256": "55bf0f75c8d8eb332faa7894a3e8bfb681fecc9b457d82ebbca41331fd9ad377",
+        "sha512": "GF/Y3Bo4Oax6uZACZ053kWk7BrzNZ+boiLeR7+3BtsTyb+xAW84xL+rQuPunzpMjB76rkEqfRNlBQ4K8QDPzvg==",
         "contentType": "application/x-apple-diskimage"
       },
       {
         "platform": "win32",
         "architecture": "x64",
         "kind": "nsis",
-        "url": "https://github.com/itechchoice/prime-x-releases/releases/download/v0.1.1-internal.9/Prime-X-0.1.1-internal.9-win-x64.exe",
-        "byteSize": 94499225,
-        "sha256": "fb017279d9dbe6852bcb26617ae3ba814be26a32437fc0c448140e5a0edff363",
-        "sha512": "j82qqJptYjEgfgZdhYnZECE06PBNFBp3BZY2lCo3LtRflAi5pJkV0w/RN+BprGmcDVCYBwBfIx+ZM+k8os0++g==",
+        "url": "https://github.com/itechchoice/prime-x-releases/releases/download/v0.1.1-internal.11/Prime-X-0.1.1-internal.11-win-x64.exe",
+        "byteSize": 94504178,
+        "sha256": "4ffaa3e0b225c545ff5bdab7a572f805fb13e7f6ffb10b20b9562d59446120d0",
+        "sha512": "jLM3dP3VP8HOGA88Jl+o8NDgESxC/3QrEQxJ+BiFCUshzdyIXgbOHqNRYoNSa+2UXatzCzallW0sOrZvyQgEZQ==",
         "contentType": "application/x-msdownload"
       }
     ],
     "evidence": {
-      "macPackageReportSha256": "e358310f08e35a029341314293cfb6fc568f42021bb1040af64337aff0612bdb",
-      "windowsPackageReportSha256": "305b6e5a6040186e364855067953985a3c33fad6562e5c10c02bce6ef0a95d36",
-      "releaseCandidateReportSha256": "8c6e97e39c1ad709931cea548b8dd88455c2802f291fbe53c74cadaf7939a3a9"
+      "macPackageReportSha256": "91c1b31525e2dd61f7a8d42ee937d312ae482ccdc395b4e1871e0f7867a03102",
+      "windowsPackageReportSha256": "54e31e799a9fadbfc9fb77955c5f2c740fd1321389c376aeab147367b4405ae2",
+      "releaseCandidateReportSha256": "9f3ef60f5a81fe3f3f8a04971258f31ffb261827cf7f57e0ca60b23f88acaa5d"
     }
   },
   "signature": {
     "algorithm": "ed25519",
     "keyId": "prime-x-internal-2026-01",
     "keyGeneration": 1,
-    "value": "Lf4Oo0ui7ruDmi9Wb9XLUn8lw4EhbCGwjfvJljFR-n1Xys4tqvTWe3zhxUjR1_b-bQc42-1Lq6d5QaRhdCF2AQ"
+    "value": "QDCqJSeF_dpmGl2tS47383AjP1fctgPLHsb1mRUvuslIakRmlNVvdFtgR6rfI1CpsUWdxCTH51yYVLQolJmOBA"
   }
 }
