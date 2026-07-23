@@ -1,0 +1,81 @@
+{
+  "manifest": {
+    "payloadVersion": "primaris.desktop-update/v2",
+    "releaseId": "945e1488-c64b-46da-a4a4-e5bbf604fa2b",
+    "manifestVersion": 9,
+    "channel": "internal",
+    "releaseVersion": "0.1.1-internal.9",
+    "buildNumber": 9,
+    "minimumAllowedVersion": "0.1.0",
+    "classification": "normal",
+    "publishedAt": "2026-07-23T18:32:26.837Z",
+    "expiresAt": "2026-09-23T18:32:26.837Z",
+    "releaseCommit": "a344ec94dbaef4bd956bc0453b474571edafa12c",
+    "releaseNotesUrl": "https://github.com/itechchoice/prime-x-releases/releases/tag/v0.1.1-internal.9",
+    "rollout": {
+      "basisPoints": 10000,
+      "seed": "prime-x-internal-0.1.1-internal.9",
+      "paused": false
+    },
+    "withdrawn": {
+      "isWithdrawn": false,
+      "reasonCode": null
+    },
+    "compatibility": {
+      "desktop": {
+        "minimum": "0.1.0",
+        "maximum": "0.1.1-internal.9"
+      },
+      "minimumOperatingSystem": {
+        "darwin": "13.0.0",
+        "win32": "10.0.19045"
+      },
+      "embeddedHost": {
+        "version": "0.1.0",
+        "protocol": "v1"
+      },
+      "controlPlaneApi": {
+        "minimum": 1,
+        "maximum": 1
+      },
+      "localSchema": {
+        "minimum": 1,
+        "maximum": 1,
+        "rollbackSupportedFrom": 1
+      }
+    },
+    "artifacts": [
+      {
+        "platform": "darwin",
+        "architecture": "arm64",
+        "kind": "dmg",
+        "url": "https://github.com/itechchoice/prime-x-releases/releases/download/v0.1.1-internal.9/Prime-X-0.1.1-internal.9-mac-arm64.dmg",
+        "byteSize": 113993500,
+        "sha256": "b2c47281856daae99d268793282c2bcc891c889383a3fa3c0bc45d4344ffe214",
+        "sha512": "YjrejogtCG7VSoomRanFG018zzgzKo3q8HyIHygPxkOHF6OscYRmaR7/OnmKorA+EUoOPxy+TMq3wxpcok1/OQ==",
+        "contentType": "application/x-apple-diskimage"
+      },
+      {
+        "platform": "win32",
+        "architecture": "x64",
+        "kind": "nsis",
+        "url": "https://github.com/itechchoice/prime-x-releases/releases/download/v0.1.1-internal.9/Prime-X-0.1.1-internal.9-win-x64.exe",
+        "byteSize": 94499225,
+        "sha256": "fb017279d9dbe6852bcb26617ae3ba814be26a32437fc0c448140e5a0edff363",
+        "sha512": "j82qqJptYjEgfgZdhYnZECE06PBNFBp3BZY2lCo3LtRflAi5pJkV0w/RN+BprGmcDVCYBwBfIx+ZM+k8os0++g==",
+        "contentType": "application/x-msdownload"
+      }
+    ],
+    "evidence": {
+      "macPackageReportSha256": "e358310f08e35a029341314293cfb6fc568f42021bb1040af64337aff0612bdb",
+      "windowsPackageReportSha256": "305b6e5a6040186e364855067953985a3c33fad6562e5c10c02bce6ef0a95d36",
+      "releaseCandidateReportSha256": "8c6e97e39c1ad709931cea548b8dd88455c2802f291fbe53c74cadaf7939a3a9"
+    }
+  },
+  "signature": {
+    "algorithm": "ed25519",
+    "keyId": "prime-x-internal-2026-01",
+    "keyGeneration": 1,
+    "value": "Lf4Oo0ui7ruDmi9Wb9XLUn8lw4EhbCGwjfvJljFR-n1Xys4tqvTWe3zhxUjR1_b-bQc42-1Lq6d5QaRhdCF2AQ"
+  }
+}
