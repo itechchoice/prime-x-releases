@@ -130,9 +130,17 @@ async function fetchLatestRelease(signal: AbortSignal): Promise<ReleaseInfo> {
   if (!response.ok) throw new Error(`GitHub returned ${response.status}`);
 
   const releases = (await response.json()) as GitHubRelease[];
+  // GitHub's list-releases order is not reliably by publish date (this repo's
+  // tags were bulk-created on one day, so the array order is stale), so sort
+  // by published_at ourselves instead of trusting array order.
+  const byPublishedDesc = [...releases].sort(
+    (a, b) =>
+      new Date(b.published_at ?? 0).getTime() -
+      new Date(a.published_at ?? 0).getTime(),
+  );
   const release =
-    releases.find((item) => item.prerelease && !item.draft) ??
-    releases.find((item) => !item.draft);
+    byPublishedDesc.find((item) => item.prerelease && !item.draft) ??
+    byPublishedDesc.find((item) => !item.draft);
 
   if (!release) throw new Error("No published release found");
 
