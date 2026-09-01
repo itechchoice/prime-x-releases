@@ -1,4 +1,5 @@
 import {
+  AndroidLogo,
   AppleLogo,
   ArrowDown,
   ArrowRight,
@@ -36,6 +37,11 @@ type IconComponent = ComponentType<{
 }>;
 
 const REPOSITORY_URL = "https://github.com/itechchoice/prime-x-releases";
+
+/* [京哥 2026-09-01「iOS 先放一个测试链接即可」] **占位，不是真邀请链接。**
+   iOS 没有侧载这条路（见移动端 docs/安装与发版.md §7），只能走 TestFlight，
+   而那卡在两件要 Apple 开发者账号的事上。换成正式链接时只改这一行。 */
+const IOS_TESTFLIGHT_URL = "https://testflight.apple.com/";
 const ASSET_BASE = `${import.meta.env.BASE_URL}assets`;
 
 const primaryButton =
@@ -138,7 +144,12 @@ function PlatformCard({
 }) {
   const t = copy[language];
   const content = t.download[platform];
-  const Icon = platform === "mac" ? AppleLogo : WindowsLogo;
+  const Icon =
+    platform === "mac"
+      ? AppleLogo
+      : platform === "windows"
+        ? WindowsLogo
+        : AndroidLogo;
 
   return (
     <article className="group flex min-w-0 flex-col justify-between overflow-hidden rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-[0_20px_55px_rgba(15,23,42,0.06)] sm:p-8 dark:border-white/10 dark:bg-[#11161e] dark:shadow-[0_20px_60px_rgba(0,0,0,0.22)]">
@@ -197,6 +208,60 @@ function PlatformCard({
         <a className={`${primaryButton} w-full`} href={asset.url}>
           <DownloadSimple size={19} weight="bold" aria-hidden />
           {content.action}
+        </a>
+      </div>
+    </article>
+  );
+}
+
+/* 还没有安装包的那一档：Android 等签名密钥库、iOS 等 Apple 账号。
+   **刻意不复用 PlatformCard**：它的每一处都在承诺一个真实产物（体积、SHA-256、
+   直接下载）。把它们填成占位值就是在骗人：用户会去核一个不存在的校验值。
+   这张卡只说两件事：现在没有、以及去哪看。 */
+function PendingCard({
+  kind,
+  language,
+  href,
+}: {
+  kind: "android" | "ios";
+  language: Language;
+  href: string;
+}) {
+  const t = copy[language];
+  const content = t.download[kind];
+  const Icon = kind === "android" ? AndroidLogo : AppleLogo;
+
+  return (
+    <article className="group flex min-w-0 flex-col justify-between overflow-hidden rounded-[28px] border border-dashed border-slate-300 bg-white/60 p-6 sm:p-8 dark:border-white/15 dark:bg-[#11161e]/60">
+      <div>
+        <div className="flex items-start justify-between gap-6">
+          <div>
+            <div className="mb-5 inline-flex size-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-500 dark:bg-white/5 dark:text-slate-400">
+              <Icon size={25} weight="fill" aria-hidden />
+            </div>
+            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+              {content.platform}
+            </p>
+            <h3 className="mt-1 text-[clamp(1.65rem,3vw,2.4rem)] font-semibold tracking-[-0.04em] text-slate-950 dark:text-white">
+              {content.title}
+            </h3>
+            <p className="mt-2 text-[15px] text-slate-500 dark:text-slate-400">
+              {content.detail}
+            </p>
+          </div>
+          <span className="shrink-0 whitespace-nowrap rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-500 dark:border-white/10 dark:text-slate-400">
+            {t.download.pendingBadge}
+          </span>
+        </div>
+      </div>
+
+      <div className="mt-7">
+        <p className="mb-5 min-h-12 text-sm leading-6 text-slate-500 dark:text-slate-400">
+          {content.pending}
+        </p>
+        <a className={`${secondaryButton} w-full`} href={href}>
+          <ArrowRight size={19} weight="bold" aria-hidden />
+          {content.pendingAction}
         </a>
       </div>
     </article>
@@ -284,7 +349,8 @@ export default function App() {
         : t.hero.chooseCta;
 
   async function copyChecksum(platformToCopy: Platform) {
-    const checksum = release[platformToCopy].checksum;
+    /* `release.android` 可空（安卓包还没挂上来时是 null），所以这里不能直接点出去。 */
+    const checksum = release[platformToCopy]?.checksum;
     if (!checksum) return;
     try {
       await navigator.clipboard.writeText(checksum);
@@ -518,6 +584,46 @@ export default function App() {
                 onCopy={() => void copyChecksum("windows")}
               />
             </div>
+
+            <div
+              className="mt-16 grid items-end gap-6 lg:grid-cols-[1fr_0.72fr]"
+              data-reveal
+            >
+              <h2 className="max-w-3xl text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.02] font-semibold tracking-[-0.05em] text-balance">
+                {t.download.mobileTitle}
+              </h2>
+              <p className="max-w-xl text-base leading-7 text-slate-600 lg:justify-self-end dark:text-slate-400">
+                {t.download.mobileBody}
+              </p>
+            </div>
+
+            <div
+              className="mt-6 grid gap-5 lg:grid-cols-[1.08fr_0.92fr]"
+              data-reveal
+            >
+              {/* 安卓包一旦挂进 Release 就自动变成真下载卡，不用再改这里。 */}
+              {release.android ? (
+                <PlatformCard
+                  platform="android"
+                  asset={release.android}
+                  language={preferences.language}
+                  copied={copiedPlatform === "android"}
+                  onCopy={() => void copyChecksum("android")}
+                />
+              ) : (
+                <PendingCard
+                  kind="android"
+                  language={preferences.language}
+                  href={release.pageUrl}
+                />
+              )}
+              <PendingCard
+                kind="ios"
+                language={preferences.language}
+                href={IOS_TESTFLIGHT_URL}
+              />
+            </div>
+
             <p className="sr-only" aria-live="polite">
               {copiedPlatform ? t.download.copied : ""}
             </p>

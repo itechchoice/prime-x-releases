@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-export type Platform = "mac" | "windows";
+/* Android 与桌面一样是「Release 里挂着一个安装包」，所以同属 Platform；
+   iOS 不是：它没有可侧载的产物，只能给 TestFlight 链接，所以不在这里。 */
+export type Platform = "mac" | "windows" | "android";
+
+/** 只有桌面两端能从 UA 推断出来，首屏 CTA 用它。 */
+export type DesktopPlatform = "mac" | "windows";
 
 export type DownloadAsset = {
   name: string;
@@ -16,6 +21,10 @@ export type ReleaseInfo = {
   pageUrl: string;
   mac: DownloadAsset;
   windows: DownloadAsset;
+  /* **可空是刻意的**：安卓包要等移动端签名密钥库就位后才会挂进 Release。
+     在那之前页面照常渲染，安卓卡片走「即将提供」态：不能因为少一个包
+     就把整页拖进 fallback（那会连桌面下载一起降级）。 */
+  android: DownloadAsset | null;
   source: "github" | "fallback";
 };
 
@@ -47,6 +56,7 @@ export const fallbackRelease: ReleaseInfo = {
   publishedAt: "2026-07-22T08:05:26Z",
   pageUrl: FALLBACK_RELEASE_URL,
   source: "fallback",
+  android: null,
   mac: {
     name: "Prime-X-0.1.0-mac-arm64.dmg",
     url: `${FALLBACK_ASSET_URL}/Prime-X-0.1.0-mac-arm64.dmg`,
@@ -66,10 +76,20 @@ export const fallbackRelease: ReleaseInfo = {
 function findAsset(assets: GitHubAsset[], platform: Platform) {
   const installer = assets.find((asset) => {
     const name = asset.name.toLowerCase();
-    return platform === "mac"
-      ? name.endsWith(".dmg") &&
-          (name.includes("arm64") || name.includes("aarch64"))
-      : name.endsWith(".exe") && (name.includes("x64") || name.includes("win"));
+    if (platform === "mac") {
+      return (
+        name.endsWith(".dmg") &&
+        (name.includes("arm64") || name.includes("aarch64"))
+      );
+    }
+    if (platform === "windows") {
+      return (
+        name.endsWith(".exe") && (name.includes("x64") || name.includes("win"))
+      );
+    }
+    /* universal APK（见移动端 docs/安装与发版.md：刻意不出 split-per-abi，
+       让用户挑 abi 就是把发布责任推回给用户）。AAB 不是给人装的，排除掉。 */
+    return name.endsWith(".apk");
   });
 
   if (!installer) return null;
@@ -144,13 +164,15 @@ async function fetchLatestRelease(signal: AbortSignal): Promise<ReleaseInfo> {
 
   if (!release) throw new Error("No published release found");
 
-  const [mac, windows] = await Promise.all([
+  const [mac, windows, android] = await Promise.all([
     toDownloadAsset(release.assets, "mac"),
     toDownloadAsset(release.assets, "windows"),
+    toDownloadAsset(release.assets, "android"),
   ]);
 
+  /* 只有桌面两端缺了才算这次 Release 不可用。**安卓缺了不抛**：见 ReleaseInfo.android。 */
   if (!mac || !windows)
-    throw new Error("Release is missing a supported installer");
+    throw new Error("Release is missing a supported desktop installer");
 
   return {
     tag: release.tag_name,
@@ -159,6 +181,7 @@ async function fetchLatestRelease(signal: AbortSignal): Promise<ReleaseInfo> {
     pageUrl: release.html_url,
     mac,
     windows,
+    android,
     source: "github",
   };
 }
@@ -193,7 +216,7 @@ export function formatBytes(bytes: number) {
   return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 }
 
-export function detectPlatform(): Platform | null {
+export function detectPlatform(): DesktopPlatform | null {
   const value = `${navigator.userAgent} ${navigator.platform}`.toLowerCase();
   if (value.includes("mac")) return "mac";
   if (value.includes("win")) return "windows";
