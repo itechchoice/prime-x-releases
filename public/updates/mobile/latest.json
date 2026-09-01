@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "buildNumber": 2,
+  "notes": "首个可直接安装的 Android 版本：签名密钥库就位，装完可持续升级。",
+  "androidUrl": "https://github.com/itechchoice/prime-x-releases/releases/download/v2.0.0-internal.36/Prime-X-Mobile-1.0.0-2-android-universal.apk",
+  "iosUrl": "",
+  "mandatory": false
+}
