@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "buildNumber": 3,
-  "notes": "修复：Android 正式包缺少网络权限，导致登录一律报「连不上平台」。",
-  "androidUrl": "https://github.com/itechchoice/prime-x-releases/releases/download/v2.0.0-internal.36/Prime-X-Mobile-1.0.0-3-android-universal.apk",
+  "buildNumber": 4,
+  "notes": "资源页改成「能力 | 市场」两层：能力按类型筛（全部/助手/工作流/技能），市场只摆已上架的能力，测试与内部条目不再混在里面。助手点一下就能开始对话。运行列表不再显示模型 PRN。",
+  "androidUrl": "https://github.com/itechchoice/prime-x-releases/releases/download/v2.0.0-internal.37/Prime-X-Mobile-1.0.0-4-android-universal.apk",
   "iosUrl": "",
   "mandatory": false
 }

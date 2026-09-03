@@ -47,8 +47,11 @@ export const copy = {
         detail: "Universal APK · arm64, armeabi-v7a, x86_64",
         action: "Download APK",
         note: "Android will ask you to allow installs from this source the first time.",
-        pending:
-          "Not in this release yet. The signing keystore has to be created once before Android builds can be published.",
+        /* [2026-09-02] 原文案是「签名密钥库还没建，所以发不了安卓包」：密钥库
+           9-01 就建好了，build 3 就是它签的。文案没跟着改，于是卡片在**说一件
+           已经不成立的事**，比不说更糟。现在这一句只在「十个 Release 里一个
+           安卓包都没有」时出现，那才是真的还没发过。 */
+        pending: "No Android build has been published yet.",
         pendingAction: "See releases",
       },
       ios: {
@@ -156,8 +159,8 @@ export const copy = {
         detail: "通用 APK · arm64、armeabi-v7a、x86_64",
         action: "下载 APK",
         note: "首次安装时 Android 会问一句「允许从此来源安装应用」，同意即可。",
-        pending:
-          "本版还没有安卓包。需要先一次性建好签名密钥库，之后每版才能自动挂上来。",
+        /* 同 §英文那条：密钥库 9-01 就建好了，这句话已经不成立。 */
+        pending: "还没有发布过安卓包。",
         pendingAction: "查看发布页",
       },
       ios: {

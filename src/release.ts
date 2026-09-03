@@ -138,6 +138,16 @@ async function toDownloadAsset(
   };
 }
 
+/** 从新到旧扫，返回第一个真的挂了 APK 的 Release 里的那个包。 */
+async function firstAndroidAsset(releases: GitHubRelease[]) {
+  for (const item of releases) {
+    if (item.draft) continue;
+    const asset = await toDownloadAsset(item.assets, "android");
+    if (asset) return asset;
+  }
+  return null;
+}
+
 async function fetchLatestRelease(signal: AbortSignal): Promise<ReleaseInfo> {
   const response = await fetch(
     `https://api.github.com/repos/${REPOSITORY}/releases?per_page=10`,
@@ -164,15 +174,29 @@ async function fetchLatestRelease(signal: AbortSignal): Promise<ReleaseInfo> {
 
   if (!release) throw new Error("No published release found");
 
-  const [mac, windows, android] = await Promise.all([
+  const [mac, windows] = await Promise.all([
     toDownloadAsset(release.assets, "mac"),
     toDownloadAsset(release.assets, "windows"),
-    toDownloadAsset(release.assets, "android"),
   ]);
 
   /* 只有桌面两端缺了才算这次 Release 不可用。**安卓缺了不抛**：见 ReleaseInfo.android。 */
   if (!mac || !windows)
     throw new Error("Release is missing a supported desktop installer");
+
+  /* 安卓**在所有 Release 里往回找**，不只看最新那一个。
+     ---------------------------------------------------------------------
+     [判例 2026-09-02] 官网上安卓卡片突然变回「Not yet」。查下来不是包没了，
+     是桌面端当天发了 internal.37，而那个 Release 里没挂安卓包：安卓包还在
+     前一天的 internal.36 上。旧逻辑把三端都从**同一个** Release 里取，
+     于是桌面一发新版，安卓就消失一次。
+
+     根子在于**桌面和移动是两条节奏**：桌面几天一版，移动几周一版，
+     但两者共用这一条 Release 流。要求每个 Release 都带齐三端是不现实的，
+     那等于逼着移动端陪桌面发空包。
+
+     所以按平台各自往回找最近一次有产物的 Release。桌面仍然只认最新那一个，
+     因为它每版都出包；往回找反而会在发布中途露出一个旧版本。 */
+  const android = await firstAndroidAsset(byPublishedDesc);
 
   return {
     tag: release.tag_name,
