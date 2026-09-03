@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "buildNumber": 4,
+  "buildNumber": 5,
   "notes": "资源页改成「能力 | 市场」两层：能力按类型筛（全部/助手/工作流/技能），市场只摆已上架的能力，测试与内部条目不再混在里面。助手点一下就能开始对话。运行列表不再显示模型 PRN。",
-  "androidUrl": "https://github.com/itechchoice/prime-x-releases/releases/download/v2.0.0-internal.37/Prime-X-Mobile-1.0.0-4-android-universal.apk",
+  "androidUrl": "https://github.com/itechchoice/prime-x-releases/releases/download/v2.0.0-internal.37/Prime-X-Mobile-1.0.0-5-android-universal.apk",
   "iosUrl": "",
   "mandatory": false
 }
